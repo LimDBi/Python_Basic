@@ -22,7 +22,7 @@ print("Hello\tWorld")
 # 공부 tip)
 # - 몇 버전부터 ~ 나온 기술(신기술) -> 신기술 공부, 구기술 공부 X -> 코드를 못 읽을 수 있음.
 
-#자료형(type)
+# 자료형(type)
 # - Python의 모든 자료형은 객체(Object)
 # - c, Java 언어 문자형(char): 'A', 'E' 키보드 제어에 사용
 # 1) 문자열(String): "Hello", 'Hi'
@@ -42,7 +42,7 @@ print("="*200)
 print(type("ABC"))
 print(type(123))
 
-#형 변환(Type Casting) *중요*
+# 형 변환(Type Casting) *중요*
 # - Type Casting을 사용하면 값을 원하는 자료형으로 변환 가능
 # 1) int(): 정수형으로 변환
 # 2) float(): 실수형으로 변환
@@ -104,6 +104,82 @@ print(num)  # 출력: 10
 # num = 5 문법
 # 대입연산자(=) : 우측의 값을 좌측에 저장
 # 동등연산자(==) : Equal
+
+# name 변수 생성
+# "Danbi Lim" 값을 name 변수에 담기
+
+# name(변수명), =(대입연산자), "Danbi Lim"(값)
+name = "Danbi Lim"
+
+# 명명규칙(Naming Rule)
+# * 변수, 함수, 클래스 등의 사용자 정의 이름을 붙일 때 사용.
+# * 명확하고 알아보기 쉽게 짓기
+#
+#  1. 영문 대소문자, 숫자, 특수문자(_)만 사용
+#  2. 숫자로 시작할 수 없음
+#      abc1 (0), 1abc(x)
+#  3. 영어 대소문자를 구별
+#      abc Abc ABC abC 모두 다른 변수
+#  4. 예약어 사용 불가
+#      예약어: Python에서 미리 선점하여 사용중인 키워드
+#      ex) print, for, while, if, else, class, try, except, True, False,
+#      and, return,import, def, pass, break, continue, del 등등
+#
+# Naming Method *시험*
+# - 변수, 함수, 클래스 등의 사용자 정의 이름에 사용하는 기법 (음절분리)
+# - 프로그래밍 언어별로 사용하는 Naming Method가 다름
+
+#   1. snake_case: 소문자만 사용, 합성어는 (_)사용
+#      ex)student_name
+#   2. camelCase: 첫글자 소문자, 합성어 첫글자 대문자
+#      ex) studentName
+#   3. PascalCase: 첫글자 대문자, 합성어 첫글자 대문자
+#      ex) StudentName
+
+#                     변수               함수               클래스
+# Jave, C          camelCase         camelCase()        PascalCase
+# Python           snake_case        snake_case()       PascalCase
+
+
+
+#개발자: 웹(프론트엔드, 백엔드), 앱(Android, Apple), 웹 퍼블리셔
+#웹 디자이너
+#서버 엔지니어(리눅스 운영 관리) + 클라우드 개발자
+#네트워크 엔지니어
+#데이터베이스 엔지니어
+#SQL 튜너
+#데이터 모델러
+#EPR 개발자
+#보안 개발자
+#인공지능, 데이터분석가, 데이터 사이언티스트, 프롬프트 엔지니어
+#데이터 엔지니어
+#프로그래밍언어하나다루기
+#모든직책조금씩접하면서진로찾기
+
+
+
+# 동적출력!
+print("="*200)
+student_num = 20233143
+student_name = "Danbi Lim"
+# 출력 예) "조선대학교 20233143 Danbi Lim 입니다."
+# print("조선대학교 20233143 Danbi Lim 입니다.") #하드 코딩 지양
+
+# 1.format()함수 -Old
+print("조선대학교 {} {} 입니다.".format(student_num, student_name))
+
+# 2. f-string - New
+print(f"조선대학교 {student_num} {student_name} 입니다.")
+
+# 간단한 사칙연산
+# + : 더하기
+# - : 빼기
+# * : 곱하기
+# ** or ^ : 제곱
+
+# 5/2 : 나누기  2.5
+# 5//2 : 나누기(몫) 2
+# 5%2 : 나누기(나머지) 1
 
 
 
