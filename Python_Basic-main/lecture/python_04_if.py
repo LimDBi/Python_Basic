@@ -78,9 +78,9 @@ else:
 
 # input(): 키보드 값 입력 => String(문자열)타입
 from datetime import datetime
-born = input("당신이 태어난 년도를 입력하세요: ") # input 이 scanf + printf느낌. 출력할때는 print(born)
+born = input("당신이 태어난 년도를 입력하세요: ")  # input 이 scanf + printf느낌. 출력할때는 print(born)
 today =  datetime.today().year 
-age = today - int(born) +1  #String타입의 born을 숫자로 바꿔서 뺄셈
+age = today - int(born) +1   # String타입의 born을 숫자로 바꿔서 뺄셈
 
 if 8 <= age <= 26:
     if age >= 20:  # age <= 26 and age >= 20 와 26 >= age >= 20는 같음.
