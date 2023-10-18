@@ -16,3 +16,8 @@ def user_choice(max_cnt, menu_type):
             return choice
         else:
             print("MSG: 올바른 번호를 입력하세요.")
+
+def show_manu(menu_type, menu_name, menu_price):
+    print(f"▲▲ {menu_type} 메뉴")
+    for i in range(len(menu_name)):
+        print(f"▲△ {i+1}. {menu_name[i+1]}({menu_price[i+1]})")
