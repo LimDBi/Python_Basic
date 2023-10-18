@@ -5,10 +5,11 @@
 #   - 내용: 카페 음료를 주문 및 판매하는 콘솔 프로그램
 
 # - 조건
-# 1. 사용자는 최대 음료 1개, 베이커리 1개, 굿즈 1개 구매 가능(한번에 한개씩만)
+# 1. 사용자는 한번에 최대 음료 1개, 베이커리 1개, 굿즈 1개 구매 가능
 
 #함수 사용
 from service_kiosk import user_choice
+from service_kiosk import show_menu
 
 # 메뉴와 가격표
 #   - Dict Type -> 데이터베이스
@@ -42,25 +43,28 @@ while True:
 
     # 3. 세부 메뉴 출력
     if choice == 1:     #음료
-        print("▲▲ 음료(Drink) 메뉴")
-        for i in range(len(drink_name)):
-            print(f"▲△ {i+1}. {drink_name[i+1]}({drink_price[i+1]})")    #dict 인덱스 없음, key 있음.i+1해야 key의 첫번째값 가져옴.
+        # print("▲▲ 음료(Drink) 메뉴")
+        # for i in range(len(drink_name)):
+        #     print(f"▲△ {i+1}. {drink_name[i+1]}({drink_price[i+1]})")    #dict 인덱스 없음, key 있음.i+1해야 key의 첫번째값 가져옴.
+        show_menu("음료(Drink)", drink_name, drink_price)
         # 4. 세부 메뉴 선택
         sub = user_choice(len(drink_name), "main")
         # 5. 음료 주문 저장
         menu_save.append(drink_name[sub])   # 비어있는 list menu_save에 값을 추가
         price_save.append(drink_price[sub])
     elif choice == 2:   #빵
-        print("▲▲ 빵(Bakery) 메뉴")
-        for i in range(len(bakery_name)):
-            print(f"▲△ {i+1}. {bakery_name[i+1]}({drink_price[i+1]})")
+        # print("▲▲ 빵(Bakery) 메뉴")
+        # for i in range(len(bakery_name)):
+        #     print(f"▲△ {i+1}. {bakery_name[i+1]}({drink_price[i+1]})")
+        show_menu("빵(Bakery)", bakery_name, bakery_price)
         sub = user_choice(len(bakery_name), "main")     # 4. 세부 메뉴 선택
         menu_save.append(bakery_name[sub])
         price_save.append(bakery_price[sub])
     elif choice == 3:   #굿즈
-        print("▲▲ 굿즈(Goods) 메뉴")
-        for i in range(len(goods_name)):
-            print(f"▲△ {i + 1}. {goods_name[i + 1]}({goods_price[i + 1]})")
+        # print("▲▲ 굿즈(Goods) 메뉴")
+        # for i in range(len(goods_name)):
+        #     print(f"▲△ {i + 1}. {goods_name[i + 1]}({goods_price[i + 1]})")
+        show_menu("굿즈(goods)", goods_name, goods_price)
         sub = user_choice(len(goods_name), "main")      # 4. 세부 메뉴 선택
         menu_save.append(goods_name[sub])
         price_save.append(goods_price[sub])
