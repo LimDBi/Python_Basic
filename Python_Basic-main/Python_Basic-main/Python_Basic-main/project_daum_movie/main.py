@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
+from datetime import datetime, timedelta
 import time
 import re
 import math
@@ -31,7 +32,7 @@ options.add_experimental_option("detach", True)
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=options)
 
 # URL 접속
-url = "https://movie.daum.net/moviedb/grade?movieId=165591"
+url = "https://movie.daum.net/moviedb/grade?movieId=169137"
 driver.get(url)
 time.sleep(2)
 
@@ -51,7 +52,7 @@ total_review_cnt = doc.select("span.txt_netizen")[0].get_text()
 #   1. 문자열 슬라이싱 방법
 # print(total_review_cnt[1:-2])
 #   2. 정규식 사용한 방법
-num_review = int(re.sub(r"[^~0-9]", "", total_review_cnt))
+num_review = int(re.sub(r"[^~0-9]", "", total_review_cnt))      # 숫자만 뽑는 정규식
 # 187 = 최초(10), 버튼 1개(30개)
 # 올림((187 - 10) / 30) = math.ceil((num_review - 10) / 30)
 click_cnt = math.ceil((num_review - 10) / 30)
@@ -64,5 +65,41 @@ for i in range(click_cnt):
 
 # 전체 소스코드 가져오기2(평점 모두 출력)
 doc_html = driver.page_source
-doc = BeautifulSoup(doc_html, "thml,parser")
-review_list = doc.select("")
+doc = BeautifulSoup(doc_html, "html.parser")
+review_list = doc.select("ul.list_comment > li")
+
+print(len(review_list))
+
+for item in review_list:
+    print("=" * 100)
+    review_score = item.select("div.ratings")[0].get_text()       #점이 2개면 클래스가 2개. 점은 하나만 있어야 함.
+    print(f"  - 평점: {review_score}")
+    review_content = item.select("p.desc_txt")[0].get_text().strip()
+    # strip()은 좌우여백 제거 -> 웬만하면 문자열 읽어들일 때 작성
+    review_content = re.sub("\n", "", review_content)   # 리뷰가 여러 줄일 경우 탭 맞추려고 작성.
+    # \n : 한 줄 개행
+    # 수집한 리뷰 개행 -> 문자열 안에 \n 포함
+    # 정규식 이용: 'review_content에서 \n을 만나면 공백으로 바꾸세요'
+    print(f"  - 리뷰: {review_content}")
+    review_writer = item.select("a.link_nick > span")[1].get_text()  #  [댓글 작성자, 작성자, 댓글 모아보기]
+    #닉네임처럼 클래스가 없는 경우 (span 이라는 태그 이름으로는 가져오면 안됨.)매우매우중요
+    print(f"  - 작성자: {review_writer}")
+    # print(len(review_writer)) -> 출력 3 1번째 인덱스 출력하면 되겠구나.
+
+    # 24시간 이내에 작성된 글은 날짜 -> 예: 21시간 전, 17시간 전
+    # 실제 날짜 표기법 -> 2023. 11. 17. 12: 15
+    # 21시간 전 -> 2023. 11. 17. 12: 15
+
+    review_date = item.select("span.txt_date")[0].get_text()
+
+    # 21시간 전으로 잘못 뜨는 경우를 어떤 조건을 주면 찾을 수 있을까?
+    #   = review_date -> 17시간 전 or 2023. 11. 17. 12: 17
+    if len(review_date) < 7:
+        # 현재시간 - 17시간
+        # 숫자만 뽑도록 정규식 이용: ex) 17시간 전 -> 숫자만 추출: 17
+        reg_hour = int(re.sub(r"[^~0-9]", "", review_date))
+        # 예) 현재시간(2023.11.17 12: 29) - 18 = 2023-11-16 18:29:23.232500
+        review_date = datetime.now() - timedelta(hours=reg_hour)
+        # 예) 2023-11-16 18:29:23.232500 -> 2023. 11. 16. 18:29
+        review_date = review_date.strftime("%Y. %m. %d. %H:%M")
+    print(f"  - 날짜: {review_date}")
