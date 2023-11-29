@@ -7,14 +7,14 @@ def add_review(data):
     conn = connection()
 
     try:
-        # 2) 일꾼 생성
+        # 2) 일꾼 생성(cursor())
         curs = conn.cursor()
-        # 3) JOB 생성(SQL) → INSERT, DELETE, UPDATE, SELECT
+        # 3) 일꾼이 할 일 생성(SQL) → INSERT, DELETE, UPDATE, SELECT
         sql = """
                 INSERT INTO tbl_review(title, review, score, writer, reg_date)
                 VALUES(%(title)s, %(review)s, %(score)s, %(writer)s, %(reg_date)s);
               """
-        # 4) 작업 시작
+        # 4) 작업 시작  data로 sql이라는 일을 해라.
         curs.execute(sql, data)
     except Exception as e:
         print(e)
