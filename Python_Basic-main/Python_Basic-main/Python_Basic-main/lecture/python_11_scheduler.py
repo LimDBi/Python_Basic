@@ -15,13 +15,23 @@
 # 파이썬 터미널에서 설치 pip install apscheduler
 from apscheduler.schedulers.blocking import BlockingScheduler
 from datetime import datetime
+import time
 
-
+# print_today()를 호출하면 현재시간 출력
 def print_today():
     print(datetime.now()) #현재시간 출력
 
+def print_love():
+    print("I LOVE YOU")
 # 1. 스케줄러 생성
 scheduler = BlockingScheduler()
 
-scheduler.add_job(print_today(), "interval", seconds=5)     #5초에 한번씩 현재시간을 출력
+# 2. 스케줄러 일 할당(일, 주기, 5초)
+#   - date: 특정 날짜 및 시간에 1번만 동작
+#   - interval: 주기별로 (5초, 10분, 1시간)
+#   - CRON(多사용): 만능(매일 언제~)
+scheduler.add_job(print_today, "interval", seconds=5)     #5초에 한번씩 현재시간을 출력
+scheduler.add_job(print_love, "cron", hour="11", minute="29")
+
+# 3. 스케줄러 실행
 scheduler.start()
