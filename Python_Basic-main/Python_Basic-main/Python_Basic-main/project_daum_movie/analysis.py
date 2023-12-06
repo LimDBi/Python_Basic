@@ -1,6 +1,6 @@
 # DB에 저장된 수집 데이터를 가져와서 Excel로 저장
 # pip install pandas
-# pip install openpyexcel (엑셀 사용하려면 필요)
+# pip install openpyxl (엑셀 사용하려면 필요)
 #   - List, Dict type은 Pandas의 DataFrame(표)으로 생성 가능 -> Excel, csv 저장
 
 import pandas as pd
