@@ -6,7 +6,7 @@
 # TIP: 이모티콘 -> 텍스트 변환시 형태 확인 후 정규식 이용하여 제거
 
 from collect.collect_daum_movie_review import review_collector
-from db.movie_dao import get_last_review
+from apscheduler.schedulers.blocking import BlockingScheduler
 
 
 def main():
@@ -15,16 +15,15 @@ def main():
     print("=" * 100)
     movie_code = input("== 영화코드: ")  # 169328 (나폴레옹)
     print('==MSG: "매일 낮 12시마다 한번씩 수집됩니다."')
+    scheduler = BlockingScheduler()
+    scheduler.add_job(review_collector,    # Job
+                      trigger="cron",      # "Cron" 표기법 사용
+                      args=[movie_code],   # Job의 매개변수
+                      hour="12",           # 시간
+                      minute="0")          # 분
+    review_collector(movie_code)
 
-    # DB에서 데이터 조회 실패 -> None
-    last_date = get_last_review()
-    if last_date == None:
-        last_date = 0
-    else:
-        last_date = int(last_date["int_regdate"])
 
-    # last_date = DB에 저장된 마지막 리뷰 날짜
-    review_collector(movie_code, last_date)
 if __name__ == "__main__":
     main()
 
